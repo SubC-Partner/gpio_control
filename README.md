@@ -1,4 +1,27 @@
 # gpio\_control: a ROS package for reading/writing GPIO states on the Pi, Jetson, and many more
+
+## Mapping for Jetson TX2i on Spacely Carrier
+Part Number	Board   Name	Pin # (source)*	Carrier Designator
+ASG006	    Spacely	P00     (TCA9539@77)
+
+Pin # (source)*	    Carrier Designator (Header-Pin#)	Voltage Level	sysfs #	    In/out (default)	PU/PD (ohms)	
+P00 (TCA9539@77)	P13-15	                            3.3	            216	        in	                None
+P01 (TCA9539@77)	P13-16	                            3.3	            217	        in	                None
+P02 (TCA9539@77)	P13-13	                            3.3	            218	        in	                None
+P03 (TCA9539@77)	P13-14	                            3.3	            219	        in	                None
+P04 (TCA9539@77)	P13-11	                            3.3	            220	        in	                None
+P05 (TCA9539@77)	P13-12	                            3.3	            221	        in		            None
+P06 (TCA9539@77)	P13-9	                            3.3	            222	        in	                None
+P07 (TCA9539@77)	P13-10	                            3.3	            223	        in		            None
+P10 (TCA9539@77)	P13-7	                            3.3	            224	        in		            None
+P11 (TCA9539@77)	P13-8	                            3.3	            225	        in		            None
+P12 (TCA9539@77)	P13-5	                            3.3	            226	        in		            None
+P13 (TCA9539@77)	P13-6	                            3.3	            227	        in		            None
+P14 (TCA9539@77)	P13-3	                            3.3	            228	        in		            None
+P15 (TCA9539@77)	P13-4	                            3.3	            229	        in		            None
+P16 (TCA9539@77)	P13-1	                            3.3	            230	        in		            None
+P17 (TCA9539@77)	P13-2	                            3.3	            231	        in		            None
+
 ## Overview
 Devices such as the Raspberry Pi, NVidia Jetson, BeagleBone Black, etc have GPIO pins as an additional set of IO,
 which can be toggled between high/low states or configured to read high/low inputs. This package allows for
