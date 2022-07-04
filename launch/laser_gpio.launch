@@ -1,0 +1,2 @@
+<!-- Control of pin P13-1 using filesystem access at /sys/class/gpio/gpio/230/value' -->
+<node name="laser_gpio_control" package="gpio_control" type="gpio_control_node" args="--device generic --output 230 --rate 5" /> <!-- capped update rate at 5 Hz, since not used for control-->
