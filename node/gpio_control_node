@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+#!/usr/bin/env python
 
 """
 Control GPIO pins via ROS. Made to be as generic as possible, allowing the same node to be

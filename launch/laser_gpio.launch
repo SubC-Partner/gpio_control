@@ -1,4 +1,6 @@
 <launch>
-	<!-- Control of pin P13-1 using filesystem access at /sys/class/gpio/gpio/230/value' -->
-	<node name="laser_gpio_control" pkg="gpio_control" type="gpio_control_node" args="--device generic --output 230 --rate 5" /> <!-- capped update rate at 5 Hz, since not used for control-->
+	<!-- Control of pin P13-1 using filesystem access at /sys/class/gpio/gpio/gpio230/value' -->
+	<node name="laser_gpio_control" pkg="gpio_control" type="gpio_control_node" args="--device generic --output 216 --rate 5" > <!-- capped update rate at 5 Hz, since not used for control-->
+		<remap from="gpio_outputs/laserlaserlaser" to="laser_switch" />
+	</node>
 </launch>

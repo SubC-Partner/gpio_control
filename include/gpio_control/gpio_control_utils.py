@@ -88,14 +88,15 @@ _num2words1 = {1: 'One', 2: 'Two', 3: 'Three', 4: 'Four', 5: 'Five',
 _num2words2 = ['Twenty', 'Thirty', 'Forty', 'Fifty', 'Sixty', 'Seventy', 'Eighty', 'Ninety']
 
 
-def _num2word(num: int):
-    if 0 <= num <= 19:
-        return _num2words1[num]
-    elif 20 <= num <= 99:
-        tens, remainder = divmod(num, 10)
-        return _num2words2[tens-2] + _num2words1[remainder] if remainder else _num2words2[tens-2]
-    else:
-        return _num2word(int(num/10)) + "_thousand"
+def _num2word(num):
+    return "laser" 
+    #if 0 <= num <= 19:
+    #    return _num2words1[num]
+    #elif 20 <= num <= 99:
+    #    tens, remainder = divmod(num, 10)
+    #    return _num2words2[tens-2] + _num2words1[remainder] if remainder else _num2words2[tens-2]
+    #else:
+    #    return _num2word(int(num/10)) + "_thousand"
 
 
 class _GenericOutputPin:
@@ -152,7 +153,7 @@ class _GenericInputPin:
         return self.get_func()
 
 
-def _configure_input(pin, device: str, bus):
+def _configure_input(pin, device, bus):
     """
     Configure the node as an input. Takes in a pin to access, and a string which is what was
     passed in at the command line.
@@ -192,7 +193,7 @@ def _configure_input(pin, device: str, bus):
     raise RuntimeError('Device was invalid: ' + device)
 
 
-def _configure_output(pin: int, device: str, bus):
+def _configure_output(pin, device, bus):
     """
     Configure the node as an output. Takes in a pin to access, and a string which is what was
     passed in at the command line.
@@ -230,14 +231,14 @@ def _configure_output(pin: int, device: str, bus):
         return _GenericOutputPin(None,
                                  pin,
                                  set_low_=lambda: os.system(
-                                     'echo 0 > /sys/class/gpio/gpio' + str(pin) + '/value'),
+                                     'echo "in" > /sys/class/gpio/gpio' + str(pin) + '/direction'),
                                  set_high_=lambda: os.system(
-                                     'echo 1 > /sys/class/gpio/gpio' + str(pin) + '/value')
+                                     'echo "out" > /sys/class/gpio/gpio' + str(pin) + '/direction')
                                  )
 
-    if device == 'simulated':
-        return _GenericOutputPin(None, pin, set_high_=(lambda: print("[simulated] high!")),
-                                 set_low_=(lambda: print("[simulated] low!")))
+#    if device == 'simulated':
+#        return _GenericOutputPin(None, pin, set_high_=(lambda: print("[simulated] high!")),
+#                                 set_low_=(lambda: print("[simulated] low!")))
 
     raise RuntimeError('Device was invalid: ' + device)
 
@@ -250,8 +251,8 @@ def _to_valid_ros_topic_name(input_string):
     """
 
     # Don't bother dealing with things that are just numbers, convert them right away
-    if isinstance(input_string, int) or input_string.isnumeric():
-        return _num2word(int(input_string)).lower()
+    if isinstance(input_string, int): #or input_string.isnumeric():
+        return "twohundredthirty" #_num2word(int(input_string)).lower()
 
     # If it's alphabetic, convert numbers to characters, append numbers, and separate the
     # two using underscores. Creates something like P8U4 -> p_eight_u_4
@@ -265,15 +266,15 @@ def _to_valid_ros_topic_name(input_string):
                 just_did_num = False
             output_string += character.lower()
             just_did_str = True
-        elif character.isnumeric():
+        else:
             if just_did_str:
                 output_string += '_'
                 just_did_str = False
             output_string += _num2word(character).lower()
             just_did_num = True
-        else:
+        #else:
             # Don't bother putting in special characters (even though I don't think they'll come up)
-            pass
+        #    pass
 
     return output_string
 
@@ -338,7 +339,7 @@ class GpioControl:
     Generic control of a GPIO device. Wraps the setup and then provides a spinner to run.
     """
 
-    def __init__(self, device: str):
+    def __init__(self, device):
         self._device = device
         self._publishers = {}
         self._generic_pin_objects = {}
@@ -391,7 +392,7 @@ class GpioControl:
                                                   OutputState,
                                                   subscriber_callback)
 
-    def spin(self, rate_val: int = None):
+    def spin(self, rate_val):
         """ Wrapping the spinner function. """
         # Here's where we're doing the actual spinning: read the pin, set up a message, publish,
         # rate.sleep(), repeat.
@@ -426,7 +427,7 @@ class GpioControl:
 
             rate.sleep()
 
-    def set_pin(self, pin, state: bool):
+    def set_pin(self, pin, state):
         """
         If using this code as an import, provide a simple function to set the pin.
         """
