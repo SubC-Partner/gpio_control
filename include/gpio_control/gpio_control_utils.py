@@ -226,7 +226,7 @@ def _configure_output(pin, device, bus):
     if device == 'generic':
         # todo: as above
         os.system('echo ' + str(pin) + ' > /sys/class/gpio/export')
-        os.system('echo out > /sys/class/gpio/gpio' + str(pin) + '/direction')
+        os.system('echo in > /sys/class/gpio/gpio' + str(pin) + '/direction')
 
         return _GenericOutputPin(None,
                                  pin,
